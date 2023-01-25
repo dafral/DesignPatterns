@@ -38,7 +38,7 @@ namespace Ships
         private void Shoot()
         {
             _remainingSecondsToBeAbleToShoot = _fireRateInSeconds;
-            Projectile prefab = _projectilePrefabs.First(projectile => projectile.ID.Equals(_activeprojectileId));
+            Projectile prefab = _projectilePrefabs.First(projectile => projectile.Id.Equals(_activeprojectileId));
             Instantiate(prefab, _projectileSpawnPoint.position, _projectileSpawnPoint.rotation);
         }
     }

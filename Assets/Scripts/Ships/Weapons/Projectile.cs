@@ -13,7 +13,7 @@ namespace Ships.Weapons
 
         private const float secondsToDestroy = 4f;
 
-        public string ID => _id;
+        public string Id => _id;
 
         private void Start()
         {
