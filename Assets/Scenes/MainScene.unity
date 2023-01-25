@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &395903445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 167015731189024390, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
+  m_PrefabInstance: {fileID: 67760924231190395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab639ad00088884fa638351b9dbf678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &557367415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -233,17 +244,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
   m_PrefabInstance: {fileID: 557367415}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &851211352 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8917240315507464149, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
-  m_PrefabInstance: {fileID: 67760924231190395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1f7b60e303d32b40b13dfe189d0fa53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &992657406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
@@ -538,11 +538,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbb5330dbbab346857dd17dfc9600f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputType: 0
-  _checkLimitsType: 1
+  _inputType: 1
+  _checkLimitsType: 0
   _joystick: {fileID: 992657406}
   _joyButton: {fileID: 5579481805377443459}
-  _ship: {fileID: 851211352}
+  _ship: {fileID: 395903445}
 --- !u!4 &1925854579
 Transform:
   m_ObjectHideFlags: 0
@@ -613,7 +613,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8917240315507464149, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
 --- !u!1001 &5579481805377443458
 PrefabInstance:

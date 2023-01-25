@@ -8,10 +8,10 @@ namespace MyInput
         private const float _borderRight = 0.05f;
         private const float _borderLeft = 0.95f;
 
-        private readonly Ship _ship;
+        private readonly ShipMediator _ship;
         private int _currentDirectionX;
 
-        public AIInputAdapter(Ship ship)
+        public AIInputAdapter(ShipMediator ship)
         {
             _ship = ship;
             _currentDirectionX = 1;

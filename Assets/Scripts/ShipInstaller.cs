@@ -12,7 +12,7 @@ namespace Ships
         [SerializeField] private CheckLimitsType _checkLimitsType;
         [SerializeField] private Joystick _joystick;
         [SerializeField] private JoyButton _joyButton;
-        [SerializeField] private Ship _ship;
+        [SerializeField] private ShipMediator _ship;
 
         private void Awake()
         {

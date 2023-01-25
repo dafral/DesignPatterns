@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9007160023831822364}
   - component: {fileID: 2809734888710177295}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Projectile2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.94948757, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,5 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0b54f24682e224683856af68d0e980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: Projectile2
   _rigidbody: {fileID: 9007160023831822364}
   _speed: 10

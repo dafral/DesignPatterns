@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6557935728545846817}
   - component: {fileID: 6376904420318567295}
-  - component: {fileID: 8917240315507464149}
+  - component: {fileID: 1502633839809616739}
+  - component: {fileID: 1190847256696236161}
+  - component: {fileID: 167015731189024390}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -86,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8917240315507464149
+--- !u!114 &1502633839809616739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,13 +97,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1283457459002044552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1f7b60e303d32b40b13dfe189d0fa53, type: 3}
+  m_Script: {fileID: 11500000, guid: bffa6d13fdf0c664c865d3d0533da8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+--- !u!114 &1190847256696236161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283457459002044552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c3a532d58147c45ac552ef101dc278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _projectileSpawnPoint: {fileID: 394048197204551222}
-  _projectilePrefab: {fileID: 7297484423581758943, guid: 41e1eb240b49fa045abd238fb581286d, type: 3}
+  _projectilePrefabs:
+  - {fileID: 2809734888710177295, guid: 41e1eb240b49fa045abd238fb581286d, type: 3}
+  - {fileID: 2809734888710177295, guid: f6b4fbeef85c3604da68c3492ad4c0d0, type: 3}
   _fireRateInSeconds: 0.5
+--- !u!114 &167015731189024390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283457459002044552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab639ad00088884fa638351b9dbf678, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementController: {fileID: 1502633839809616739}
+  _weaponController: {fileID: 1190847256696236161}
 --- !u!1 &7078609689339985330
 GameObject:
   m_ObjectHideFlags: 0
