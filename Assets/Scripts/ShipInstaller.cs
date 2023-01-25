@@ -1,9 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using MyInput;
 
 namespace Ships
 {
-
     public class ShipInstaller : MonoBehaviour
     {
         private enum InputType { Keyboard, Joystick, AI };
@@ -12,6 +11,7 @@ namespace Ships
         [SerializeField] private InputType _inputType;
         [SerializeField] private CheckLimitsType _checkLimitsType;
         [SerializeField] private Joystick _joystick;
+        [SerializeField] private JoyButton _joyButton;
         [SerializeField] private Ship _ship;
 
         private void Awake()
@@ -24,16 +24,18 @@ namespace Ships
             if(_inputType == InputType.AI)
             {
                 Destroy(_joystick.gameObject);
+                Destroy(_joyButton.gameObject);
                 return new AIInputAdapter(_ship);
             }
             if (_inputType == InputType.Keyboard)
             {
                 Destroy(_joystick.gameObject);
+                Destroy(_joyButton.gameObject);
                 return new UnityInputAdapter();
             }
             else 
             {
-                return new JoystickInputAdapter(_joystick);
+                return new JoystickInputAdapter(_joystick, _joyButton);
             }
         }
 

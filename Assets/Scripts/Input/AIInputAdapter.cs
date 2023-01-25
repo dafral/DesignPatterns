@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Ships;
 
-namespace Ships
+namespace MyInput
 {
     public class AIInputAdapter : IInput
     {
@@ -30,6 +31,11 @@ namespace Ships
             }
 
             return new Vector2(_currentDirectionX, 0);
+        }
+
+        public bool IsFireActionPressed()
+        {
+            return Random.Range(0, 100) < 20;
         }
     }
 }
