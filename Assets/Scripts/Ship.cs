@@ -4,23 +4,24 @@ using UnityEngine;
 
 namespace Ships
 {
+
     public class Ship : MonoBehaviour
     {
         [SerializeField] private float _speed;
-        private Transform _myTransform;
-        private Camera _camera;
 
+        private Transform _myTransform;
         private IInput _input;
+        private ICheckLimits _checkLimits;
 
         private void Awake()
         {
-            _camera = Camera.main;
             _myTransform = transform;
         }
 
-        public void Configure(IInput input)
+        public void Configure(IInput input, ICheckLimits checkLimits)
         {
             _input = input;
+            _checkLimits = checkLimits;
         }
 
         private void Update()
@@ -32,15 +33,7 @@ namespace Ships
         private void Move(Vector2 direction)
         {
             _myTransform.Translate(direction * (_speed * Time.deltaTime));
-            ClampFinalPosition();
-        }
-
-        private void ClampFinalPosition()
-        {
-            Vector3 viewportPoint = _camera.WorldToViewportPoint(_myTransform.position);
-            viewportPoint.x = Mathf.Clamp(viewportPoint.x, 0, 1);
-            viewportPoint.y = Mathf.Clamp(viewportPoint.y, 0, 1);
-            _myTransform.position = _camera.ViewportToWorldPoint(viewportPoint);
+            _checkLimits.ClampFinalPosition();
         }
 
         private Vector2 GetDirection()

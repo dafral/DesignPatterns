@@ -529,7 +529,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbb5330dbbab346857dd17dfc9600f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputType: 1
+  _inputType: 2
+  _checkLimitsType: 1
   _joystick: {fileID: 992657406}
   _ship: {fileID: 851211352}
 --- !u!4 &1925854579
