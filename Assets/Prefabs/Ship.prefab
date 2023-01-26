@@ -114,9 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpawnPoint: {fileID: 394048197204551222}
-  _projectilePrefabs:
-  - {fileID: 2809734888710177295, guid: 41e1eb240b49fa045abd238fb581286d, type: 3}
-  - {fileID: 2809734888710177295, guid: f6b4fbeef85c3604da68c3492ad4c0d0, type: 3}
+  _projectilesConfiguration: {fileID: 11400000, guid: 2171d20552403fb4cbc288eccf41bcf7, type: 2}
+  _defaultProjectileId: {fileID: 11400000, guid: ac53c407ea80e3949931fa89168e927d, type: 2}
   _fireRateInSeconds: 0.5
 --- !u!114 &167015731189024390
 MonoBehaviour:

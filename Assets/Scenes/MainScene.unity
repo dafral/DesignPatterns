@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7dbb5330dbbab346857dd17dfc9600f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputType: 1
+  _inputType: 0
   _checkLimitsType: 0
   _joystick: {fileID: 992657406}
   _joyButton: {fileID: 5579481805377443459}
@@ -565,6 +565,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1190847256696236161, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
+      propertyPath: _defaultProjectileId
+      value: 
+      objectReference: {fileID: 11400000, guid: 894459e8477f11947a7acf829d990bd8, type: 2}
     - target: {fileID: 1283457459002044552, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
       propertyPath: m_Name
       value: Ship
@@ -613,8 +617,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8917240315507464149, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
 --- !u!1001 &5579481805377443458
 PrefabInstance:

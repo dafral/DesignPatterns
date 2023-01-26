@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3425103401719714678}
   - component: {fileID: 3239581688134229544}
   - component: {fileID: 9007160023831822364}
-  - component: {fileID: 7378337416304072949}
+  - component: {fileID: -5324725570686642790}
   m_Layer: 0
-  m_Name: Projectile1
+  m_Name: CurveProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.94948757, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7378337416304072949
+--- !u!114 &-5324725570686642790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,9 +116,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 7297484423581758943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcdc204a90b9b3247884ecdf5f0f96a9, type: 3}
+  m_Script: {fileID: 11500000, guid: be19cdb17801dfc48bff89a7f30169b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: {fileID: 11400000, guid: ac53c407ea80e3949931fa89168e927d, type: 2}
+  _id: {fileID: 11400000, guid: 894459e8477f11947a7acf829d990bd8, type: 2}
   _rigidbody: {fileID: 9007160023831822364}
-  _speed: 10
+  _speed: 5
+  _horizontalPosition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.16785437
+      value: 0.43073028
+      inSlope: 1.7583812
+      outSlope: 1.7583812
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.66561884
+      value: 0.10962735
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9583435
+      value: 0.5188675
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
