@@ -8,20 +8,20 @@ namespace Patterns.Factory
     {
         [SerializeField] private Enemy[] _enemyPrefabs;
 
-        private Dictionary<string, Enemy> _IdToEnemyPrefab;
+        private Dictionary<string, Enemy> _idToEnemyPrefab;
 
         private void Awake()
         {
-            _IdToEnemyPrefab = new Dictionary<string, Enemy>();
+            _idToEnemyPrefab = new Dictionary<string, Enemy>();
             foreach (Enemy enemyPrefab in _enemyPrefabs)
             {
-                _IdToEnemyPrefab.Add(enemyPrefab.Id, enemyPrefab);
+                _idToEnemyPrefab.Add(enemyPrefab.Id, enemyPrefab);
             }
         }
 
         public Enemy GetEnemyById(string id)
         {
-            return _IdToEnemyPrefab[id];
+            return _idToEnemyPrefab[id];
         }
     }
 }

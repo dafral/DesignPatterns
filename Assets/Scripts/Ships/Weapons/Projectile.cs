@@ -5,15 +5,15 @@ using UnityEngine;
 namespace Ships.Weapons
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
-        [SerializeField] private string _id;
+        [SerializeField] private ProjectileId _id;
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private float _speed;
 
         private const float secondsToDestroy = 4f;
 
-        public string Id => _id;
+        public string Id => _id.Value;
 
         private void Start()
         {
