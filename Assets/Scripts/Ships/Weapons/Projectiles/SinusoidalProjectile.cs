@@ -8,23 +8,16 @@ namespace Ships.Weapons.Projectiles
         [SerializeField] private float _amplitude;
         [SerializeField] private float _frequency;
 
-        private Transform _myTransform;
         private Vector3 _currentPosition;
         private float _currentTime;
 
-        private void Awake()
-        {
-            _myTransform = transform;
-        }
-
-        private void Start()
+        protected override void DoStart()
         {
             _currentTime = 0;
             _currentPosition = _myTransform.position;
-            StartCoroutine(DestroyIn(secondsToDestroy));
         }
 
-        private void FixedUpdate()
+        protected override void DoMove()
         {
             _currentPosition += _myTransform.up * (_speed * Time.deltaTime);
             Vector3 horizontalPosition = _myTransform.right * (_amplitude * Mathf.Sin(_currentTime * _frequency));
@@ -33,10 +26,9 @@ namespace Ships.Weapons.Projectiles
             _currentTime += Time.deltaTime;
         }
 
-        private IEnumerator DestroyIn(float seconds)
+        protected override void DoDestroy()
         {
-            yield return new WaitForSeconds(seconds);
-            Destroy(gameObject);
+            throw new System.NotImplementedException();
         }
     }
 }

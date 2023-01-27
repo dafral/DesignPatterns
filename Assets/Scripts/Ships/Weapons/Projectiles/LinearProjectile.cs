@@ -5,16 +5,20 @@ namespace Ships.Weapons.Projectiles
 {
     public class LinearProjectile : Projectile
     {
-        private void Start()
+        protected override void DoStart()
         {
             _rigidbody.velocity = transform.up * _speed;
-            StartCoroutine(DestroyIn(secondsToDestroy));
+        }
+        
+        protected override void DoMove()
+        {
+
         }
 
-        private IEnumerator DestroyIn(float seconds)
+        protected override void DoDestroy()
         {
-            yield return new WaitForSeconds(seconds);
-            Destroy(gameObject);
+
         }
+
     }
 }

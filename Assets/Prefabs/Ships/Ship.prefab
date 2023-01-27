@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab639ad00088884fa638351b9dbf678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _id: {fileID: 11400000, guid: 617c83148872b9441b8d6d308a74730c, type: 2}
   _movementController: {fileID: 1502633839809616739}
   _weaponController: {fileID: 1190847256696236161}
 --- !u!1 &7078609689339985330

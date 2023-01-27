@@ -6,7 +6,7 @@ namespace Ships
 {
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(WeaponController))]
-    public class ShipMediator : MonoBehaviour, IShip
+    public class ShipMediator : Ship
     {
         [SerializeField] private MovementController _movementController;
         [SerializeField] private WeaponController _weaponController;
