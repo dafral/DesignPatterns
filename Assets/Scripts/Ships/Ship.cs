@@ -1,6 +1,5 @@
-﻿using MyInput;
-using Ships.Weapons;
-using UnityEngine;
+﻿using UnityEngine;
+using Ships.Common;
 
 namespace Ships
 {
@@ -9,6 +8,6 @@ namespace Ships
         [SerializeField] private ShipId _id;
 
         public string Id => _id.Value;
-        public abstract void Configure(IInput input, ICheckLimits checkLimits, Vector2 speed, float fireRate, ProjectileId defaultProjectile);
+        public abstract void Configure(ShipConfiguration shipConfiguration);
     }
 }

@@ -1,10 +1,10 @@
 using UnityEngine;
 using MyInput;
-using System;
-using Ships.Weapons;
+using Ships.Common;
 
 namespace Ships
 {
+
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(WeaponController))]
     public class ShipMediator : Ship
@@ -14,11 +14,11 @@ namespace Ships
 
         private IInput _input;
 
-        public override void Configure(IInput input, ICheckLimits checkLimits, Vector2 speed, float fireRate, ProjectileId defaultProjectile)
+        public override void Configure(ShipConfiguration shipConfiguration)
         {
-            _input = input;
-            _movementController.Configure(this, checkLimits, speed);
-            _weaponController.Configure(this, fireRate, defaultProjectile);
+            _input = shipConfiguration.Input;
+            _movementController.Configure(this, shipConfiguration.CheckLimits, shipConfiguration.Speed);
+            _weaponController.Configure(this, shipConfiguration.FireRate, shipConfiguration.DefaultProjectile);
         }
 
         private void Update()

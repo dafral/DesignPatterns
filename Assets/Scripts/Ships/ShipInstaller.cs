@@ -1,58 +1,56 @@
 ﻿using UnityEngine;
 using MyInput;
 using Ships.Enemies;
+using Ships.Common;
+using InputType = Ships.Common.ShipBuilder.InputType;
+using CheckLimitsType = Ships.Common.ShipBuilder.CheckLimitsType;
 
 namespace Ships
 {
     public class ShipInstaller : MonoBehaviour
     {
-        private enum InputType { Keyboard, Joystick, AI };
-        private enum CheckLimitsType { Viewport, InitialPosition}
-
+        [Header("Properties")]
         [SerializeField] private InputType _inputType;
         [SerializeField] private CheckLimitsType _checkLimitsType;
         [SerializeField] private Joystick _joystick;
         [SerializeField] private JoyButton _joyButton;
         [SerializeField] private Ship _ship;
 
-        [SerializeField] private ShipToSpawnConfiguration _shipConfiguration;
+        [Header("Configurations")]
+        [SerializeField] private ShipToSpawnConfiguration _shipToSpawnConfiguration;
+        [SerializeField] private ShipsConfiguration _shipsConfiguration;
 
         private void Awake()
         {
-            _ship.Configure(GetInput(), GetCheckLimits(), 
-                _shipConfiguration.Speed, _shipConfiguration.FireRate, _shipConfiguration.ProjectileId);
+            ShipFactory _shipFactory = new ShipFactory(Instantiate(_shipsConfiguration));
+            ShipBuilder shipBuilder = _shipFactory.
+                Create(_shipToSpawnConfiguration.ShipId.Value).
+                WithConfiguration(_shipToSpawnConfiguration);
+
+            SetInput(shipBuilder);
+            SetCheckLimits(shipBuilder);
+
+            shipBuilder.Build();
         }
 
-        private IInput GetInput()
+        private void SetInput(ShipBuilder shipBuilder)
         {
-            if(_inputType == InputType.AI)
+            shipBuilder.WithInputType(_inputType);
+
+            if (_inputType == InputType.Joystick)
             {
-                Destroy(_joystick.gameObject);
-                Destroy(_joyButton.gameObject);
-                return new AIInputAdapter(_ship);
-            }
-            if (_inputType == InputType.Keyboard)
-            {
-                Destroy(_joystick.gameObject);
-                Destroy(_joyButton.gameObject);
-                return new UnityInputAdapter();
+                shipBuilder.WithJoysticks(_joystick, _joyButton);
             }
             else 
             {
-                return new JoystickInputAdapter(_joystick, _joyButton);
+                Destroy(_joystick.gameObject);
+                Destroy(_joyButton.gameObject);
             }
         }
 
-        private ICheckLimits GetCheckLimits()
+        private void SetCheckLimits(ShipBuilder shipBuilder)
         {
-            if(_checkLimitsType == CheckLimitsType.Viewport)
-            {
-                return new ViewportCheckLimits(_ship.transform, Camera.main);
-            }
-            else 
-            {
-                return new InitialPositionCheckLimits(_ship.transform, 3.5f);
-            }
+            shipBuilder.WithCheckLimitsType(_checkLimitsType);
         }
     }
 }

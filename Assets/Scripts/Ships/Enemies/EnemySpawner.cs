@@ -1,6 +1,5 @@
-﻿using MyInput;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
+using Ships.Common;
 
 namespace Ships.Enemies
 {
@@ -45,10 +44,15 @@ namespace Ships.Enemies
             {
                 ShipToSpawnConfiguration shipConfiguration = spawnConfiguration.ShipToSpawnConfigurations[i];
                 Transform spawnPosition = _spawnPositions[i % _spawnPositions.Length];
-                Ship ship = _shipFactory.Create(shipConfiguration.ShipId.Value, spawnPosition);
+                ShipBuilder shipBuilder = _shipFactory.Create(shipConfiguration.ShipId.Value);
 
-                ship.Configure(new AIInputAdapter(ship), new ViewportCheckLimits(ship.transform, Camera.main), 
-                    shipConfiguration.Speed, shipConfiguration.FireRate, shipConfiguration.ProjectileId);
+                shipBuilder.
+                    WithPosition(spawnPosition.position).
+                    WithRotation(spawnPosition.rotation).
+                    WithInputType(ShipBuilder.InputType.AI).
+                    WithCheckLimitsType(ShipBuilder.CheckLimitsType.Viewport).
+                    WithConfiguration(shipConfiguration).
+                    Build();
             }
         }
     }
