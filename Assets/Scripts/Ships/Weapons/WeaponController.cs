@@ -8,11 +8,10 @@ namespace Ships
     {
         [SerializeField] private Transform _projectileSpawnPoint;
         [SerializeField] private ProjectilesConfiguration _projectilesConfiguration;
-        [SerializeField] private ProjectileId _defaultProjectileId;
-        [SerializeField] private float _fireRateInSeconds;
 
         private ShipMediator _ship;
         private ProjectileFactory _projectileFactory;
+        private float _fireRateInSeconds;
         private float _remainingSecondsToBeAbleToShoot;
         private string _activeprojectileId;
 
@@ -22,10 +21,11 @@ namespace Ships
 
         }
 
-        public void Configure(ShipMediator ship)
+        public void Configure(ShipMediator ship, float fireRate, ProjectileId defaultProjectile)
         {
             _ship = ship;
-            _activeprojectileId = _defaultProjectileId.Value;
+            _activeprojectileId = defaultProjectile.Value;
+            _fireRateInSeconds = fireRate;
         }
 
         private void Update()

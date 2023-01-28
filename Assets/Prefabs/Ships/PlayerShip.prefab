@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1190847256696236161}
   - component: {fileID: 167015731189024390}
   m_Layer: 0
-  m_Name: Ship
+  m_Name: PlayerShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: affeade9874cf2347abb155e8d0db4d8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.18877745, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa6d13fdf0c664c865d3d0533da8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: {x: 10, y: 1}
 --- !u!114 &1190847256696236161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   _projectileSpawnPoint: {fileID: 394048197204551222}
   _projectilesConfiguration: {fileID: 11400000, guid: 2171d20552403fb4cbc288eccf41bcf7, type: 2}
   _defaultProjectileId: {fileID: 11400000, guid: ac53c407ea80e3949931fa89168e927d, type: 2}
-  _fireRateInSeconds: 0.5
+  _fireRateInSeconds: 1
 --- !u!114 &167015731189024390
 MonoBehaviour:
   m_ObjectHideFlags: 0

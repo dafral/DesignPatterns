@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c5a28df8442884c85f8a67311bda01, type: 3}
-  m_Name: PlayerShip
+  m_Script: {fileID: 11500000, guid: 27d94be2fa7906f40a1249eed05855a1, type: 3}
+  m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
-  _value: PlayerShip
+  _spawnConfigurations:
+  - _shipToSpawnConfigurations:
+    - {fileID: 11400000, guid: 777320e23308ca549859f450cc09c81c, type: 2}
+    _timeToSpawn: 3

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa5be051c481434cbcf4b51d58bb05d, type: 3}
   m_Name: ShipsConfiguration
   m_EditorClassIdentifier: 
-  _shipsPrefabs: []
+  _shipsPrefabs:
+  - {fileID: 167015731189024390, guid: 1bc960300e5324c4fa9ccf44acfdb248, type: 3}
+  - {fileID: 167015731189024390, guid: 869ab4073552c9f41b924e528d2108bf, type: 3}

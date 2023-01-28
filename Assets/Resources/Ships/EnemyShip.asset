@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60c5a28df8442884c85f8a67311bda01, type: 3}
-  m_Name: PlayerShip
+  m_Name: EnemyShip
   m_EditorClassIdentifier: 
-  _value: PlayerShip
+  _value: EnemyShip

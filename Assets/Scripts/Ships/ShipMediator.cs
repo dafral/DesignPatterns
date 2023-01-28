@@ -1,6 +1,7 @@
 using UnityEngine;
 using MyInput;
 using System;
+using Ships.Weapons;
 
 namespace Ships
 {
@@ -13,11 +14,11 @@ namespace Ships
 
         private IInput _input;
 
-        public void Configure(IInput input, ICheckLimits checkLimits)
+        public override void Configure(IInput input, ICheckLimits checkLimits, Vector2 speed, float fireRate, ProjectileId defaultProjectile)
         {
             _input = input;
-            _movementController.Configure(this, checkLimits);
-            _weaponController.Configure(this);
+            _movementController.Configure(this, checkLimits, speed);
+            _weaponController.Configure(this, fireRate, defaultProjectile);
         }
 
         private void Update()
@@ -34,5 +35,7 @@ namespace Ships
                 _weaponController.TryShoot();
             }
         }
+
+        
     }
 }
