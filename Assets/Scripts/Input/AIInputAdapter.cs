@@ -23,14 +23,14 @@ namespace MyInput
 
             if(viewportPoint.x < _borderRight)
             {
-                _currentDirectionX = _ship.transform.right.x;
+                _currentDirectionX = -_ship.transform.right.x;
             }
             else if(viewportPoint.x > _borderLeft)
             {
-                _currentDirectionX = -_ship.transform.right.x;
+                _currentDirectionX = _ship.transform.right.x;
             }
 
-            return new Vector2(_currentDirectionX, 1);
+            return new Vector2(_currentDirectionX, -1);
         }
 
         public bool IsFireActionPressed()

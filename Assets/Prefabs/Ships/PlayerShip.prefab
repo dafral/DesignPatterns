@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 1502633839809616739}
   - component: {fileID: 1190847256696236161}
   - component: {fileID: 167015731189024390}
-  m_Layer: 0
+  - component: {fileID: 1871045594041413512}
+  - component: {fileID: 5988553971537174996}
+  m_Layer: 8
   m_Name: PlayerShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bffa6d13fdf0c664c865d3d0533da8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: {x: 10, y: 1}
 --- !u!114 &1190847256696236161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,8 +116,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileSpawnPoint: {fileID: 394048197204551222}
   _projectilesConfiguration: {fileID: 11400000, guid: 2171d20552403fb4cbc288eccf41bcf7, type: 2}
-  _defaultProjectileId: {fileID: 11400000, guid: ac53c407ea80e3949931fa89168e927d, type: 2}
-  _fireRateInSeconds: 1
 --- !u!114 &167015731189024390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +131,43 @@ MonoBehaviour:
   _id: {fileID: 11400000, guid: 617c83148872b9441b8d6d308a74730c, type: 2}
   _movementController: {fileID: 1502633839809616739}
   _weaponController: {fileID: 1190847256696236161}
+--- !u!50 &1871045594041413512
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283457459002044552}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &5988553971537174996
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283457459002044552}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.22
 --- !u!1 &7078609689339985330
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 394048197204551222}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

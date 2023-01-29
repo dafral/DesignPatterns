@@ -1,7 +1,9 @@
-﻿namespace Ships
+﻿using UnityEngine;
+
+namespace Ships
 {
     public interface ICheckLimits
     {
-        public void ClampFinalPosition();
+        public Vector2 ClampFinalPosition(Vector2 currentPosition);
     }
 }

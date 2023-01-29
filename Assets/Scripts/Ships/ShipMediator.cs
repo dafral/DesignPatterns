@@ -21,10 +21,14 @@ namespace Ships
             _weaponController.Configure(this, shipConfiguration.FireRate, shipConfiguration.DefaultProjectile);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             Vector2 direction = _input.GetDirection();
             _movementController.Move(direction);
+        }
+
+        private void Update()
+        {
             CheckShootingButton();
         }
 
@@ -36,6 +40,9 @@ namespace Ships
             }
         }
 
-        
+        protected override void OnTriggerEnter2D(Collider2D collision)
+        {
+            Debug.Log($"Ship collided with {collision.name}");
+        }
     }
 }

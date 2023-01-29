@@ -15,22 +15,21 @@ namespace Ships
             _maxDistance = maxDistance;
         }
 
-        public void ClampFinalPosition()
+        public Vector2 ClampFinalPosition(Vector2 currentPosition)
         {
-            Vector3 currentPosition = _transform.position;
             Vector3 finalPosition = currentPosition;
             float distance = Mathf.Abs(currentPosition.x - _initialPosition.x);
             
             if (distance <= _maxDistance)
             {
-                return;
+                return currentPosition;
             }
             
             finalPosition.x = currentPosition.x > _initialPosition.x ?
                 _initialPosition.x + _maxDistance :
                 _initialPosition.x - _maxDistance;
 
-            _transform.position = finalPosition;
+            return finalPosition;
         }
     }
 }

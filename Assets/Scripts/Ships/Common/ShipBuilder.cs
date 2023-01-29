@@ -96,11 +96,11 @@ namespace Ships.Common
             switch (_checkLimitsType)
             {
                 case CheckLimitsType.Viewport:
-                    return new ViewportCheckLimits(ship.transform, Camera.main);
+                    return new ViewportCheckLimits(Camera.main);
                 case CheckLimitsType.InitialPosition:
                     return new InitialPositionCheckLimits(ship.transform, 10);
                 default:
-                    return new ViewportCheckLimits(ship.transform, Camera.main);
+                    return new ViewportCheckLimits(Camera.main);
             }
         }
 

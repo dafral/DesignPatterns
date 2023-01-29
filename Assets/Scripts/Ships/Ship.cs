@@ -9,5 +9,7 @@ namespace Ships
 
         public string Id => _id.Value;
         public abstract void Configure(ShipConfiguration shipConfiguration);
+
+        protected abstract void OnTriggerEnter2D(Collider2D collision);
     }
 }
