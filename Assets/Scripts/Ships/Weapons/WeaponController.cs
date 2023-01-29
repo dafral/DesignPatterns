@@ -1,4 +1,5 @@
-﻿using Ships.Weapons;
+﻿using Ships.Common;
+using Ships.Weapons;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Ships
 
         private ShipMediator _ship;
         private ProjectileFactory _projectileFactory;
+        private Teams _team;
         private float _fireRateInSeconds;
         private float _remainingSecondsToBeAbleToShoot;
         private string _activeprojectileId;
@@ -21,11 +23,12 @@ namespace Ships
 
         }
 
-        public void Configure(ShipMediator ship, float fireRate, ProjectileId defaultProjectile)
+        public void Configure(ShipMediator ship, float fireRate, ProjectileId defaultProjectile, Teams team)
         {
             _ship = ship;
             _activeprojectileId = defaultProjectile.Value;
             _fireRateInSeconds = fireRate;
+            _team = team;
         }
 
         private void Update()
@@ -46,7 +49,7 @@ namespace Ships
         private void Shoot()
         {
             _remainingSecondsToBeAbleToShoot = _fireRateInSeconds;
-            _projectileFactory.Create(_activeprojectileId, _projectileSpawnPoint);
+            _projectileFactory.Create(_activeprojectileId, _projectileSpawnPoint, _team);
 
         }
     }

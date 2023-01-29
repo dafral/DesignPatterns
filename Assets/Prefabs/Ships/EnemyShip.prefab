@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6376904420318567295}
   - component: {fileID: 1502633839809616739}
   - component: {fileID: 1190847256696236161}
+  - component: {fileID: 2143865323714403424}
   - component: {fileID: 167015731189024390}
   - component: {fileID: -6443091329625065131}
   - component: {fileID: -7229572719395820083}
@@ -116,6 +117,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectileSpawnPoint: {fileID: 394048197204551222}
   _projectilesConfiguration: {fileID: 11400000, guid: 2171d20552403fb4cbc288eccf41bcf7, type: 2}
+--- !u!114 &2143865323714403424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283457459002044552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4a67c8872e3674791fb33afc130a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &167015731189024390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +144,7 @@ MonoBehaviour:
   _id: {fileID: 11400000, guid: 5c2fb83c538d94d46b024582019d3b46, type: 2}
   _movementController: {fileID: 1502633839809616739}
   _weaponController: {fileID: 1190847256696236161}
+  _healthController: {fileID: 2143865323714403424}
 --- !u!50 &-6443091329625065131
 Rigidbody2D:
   serializedVersion: 4

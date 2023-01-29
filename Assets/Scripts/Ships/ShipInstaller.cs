@@ -29,7 +29,8 @@ namespace Ships
             ShipFactory _shipFactory = new ShipFactory(Instantiate(_shipsConfiguration));
             _shipBuilder = _shipFactory.
                            Create(_shipToSpawnConfiguration.ShipId.Value).
-                           WithConfiguration(_shipToSpawnConfiguration);
+                           WithConfiguration(_shipToSpawnConfiguration).
+                           WithTeam(Teams.Player);
 
             SetInput(_shipBuilder);
             SetCheckLimits(_shipBuilder);

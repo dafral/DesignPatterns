@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Ships.Weapons.Projectiles;
+using Ships.Common;
 
 namespace Ships.Weapons
 {
@@ -12,10 +13,13 @@ namespace Ships.Weapons
             _projectilesConfiguration = projectilesConfiguration;
         }
 
-        public Projectile Create(string projectileId, Transform spawningTransform)
+        public Projectile Create(string projectileId, Transform spawningTransform, Teams team)
         {
             Projectile projectilePrefab = _projectilesConfiguration.GetProjectileById(projectileId);
-            return Object.Instantiate(projectilePrefab, spawningTransform.position, spawningTransform.rotation);
+            Projectile projectile = Object.Instantiate(projectilePrefab, spawningTransform.position, spawningTransform.rotation);
+            projectile.Configure(team);
+
+            return projectile;
         }
     }
 }

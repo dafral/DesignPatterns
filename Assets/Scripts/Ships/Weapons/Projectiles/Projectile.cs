@@ -1,20 +1,27 @@
 using UnityEngine;
 using System.Collections;
+using Ships.Common;
 
 namespace Ships.Weapons.Projectiles
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour, IDamageable
     {
         [SerializeField] private ProjectileId _id;
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected float _speed;
 
         protected const float _secondsToDestroy = 4f;
-
         protected Transform _myTransform;
 
         public string Id => _id.Value;
+
+        public Teams Team { get; private set; }
+
+        public void Configure(Teams team)
+        {
+            Team = team;
+        }
 
         private void Start()
         {
@@ -35,16 +42,28 @@ namespace Ships.Weapons.Projectiles
             DestroyProjectile();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            Debug.Log($"Projectile collided: {collision.name}");
-            DestroyProjectile();
-        }
 
         private void DestroyProjectile()
         {
             DoDestroy();
             Destroy(gameObject);
+        }
+
+        public void AddDamage(int amount)
+        {
+            DestroyProjectile();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            IDamageable damageable = collision.GetComponent<IDamageable>();
+            
+            if(damageable.Team == Team)
+            {
+                return;
+            }
+
+            damageable.AddDamage(1);
         }
 
         protected abstract void DoStart();

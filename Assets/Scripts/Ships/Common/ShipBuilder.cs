@@ -20,6 +20,7 @@ namespace Ships.Common
         private ShipToSpawnConfiguration _shipConfiguration;
         private Joystick _joystick;
         private JoyButton _joyButton;
+        private Teams _team;
 
         public ShipBuilder FromPrefab(Ship prefab)
         {
@@ -61,6 +62,12 @@ namespace Ships.Common
         {
             _joystick = joystick;
             _joyButton = joyButton;
+            return this;
+        }
+
+        public ShipBuilder WithTeam(Teams team)
+        {
+            _team = team;
             return this;
         }
 
@@ -111,8 +118,11 @@ namespace Ships.Common
                                                   GetInput(ship),
                                                   GetCheckLimits(ship),
                                                   _shipConfiguration.Speed,
+                                                  _shipConfiguration.Health,
                                                   _shipConfiguration.FireRate,
-                                                  _shipConfiguration.ProjectileId);
+                                                  _shipConfiguration.ProjectileId,
+                                                  _team,
+                                                  _shipConfiguration.Score);
 
             ship.Configure(shipConfiguration);
             return ship;

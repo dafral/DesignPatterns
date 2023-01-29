@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Ships.Common;
+using System;
 
 namespace Ships
 {
@@ -8,8 +9,11 @@ namespace Ships
         [SerializeField] private ShipId _id;
 
         public string Id => _id.Value;
+
         public abstract void Configure(ShipConfiguration shipConfiguration);
 
         protected abstract void OnTriggerEnter2D(Collider2D collision);
+
+        public abstract void OnDamageReceived(bool isDeath);
     }
 }
