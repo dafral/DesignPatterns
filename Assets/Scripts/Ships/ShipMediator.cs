@@ -50,12 +50,18 @@ namespace Ships
         {
             if(isDeath)
             {
-                FindObjectOfType<ScoreView>().AddScore(_team, _score);
+                ScoreView.Instance.AddScore(_team, _score);
+
+                if(_team == Teams.Player)
+                {
+                    GameOverView.Instance.Show();
+                }
+                
                 Destroy(gameObject);
             }
         }
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             IDamageable damageable = collision.GetComponent<IDamageable>();
 

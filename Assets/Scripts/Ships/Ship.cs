@@ -12,8 +12,6 @@ namespace Ships
 
         public abstract void Configure(ShipConfiguration shipConfiguration);
 
-        protected abstract void OnTriggerEnter2D(Collider2D collision);
-
         public abstract void OnDamageReceived(bool isDeath);
     }
 }
