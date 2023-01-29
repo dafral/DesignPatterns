@@ -4,6 +4,7 @@ using Ships.Enemies;
 using Ships.Common;
 using InputType = Ships.Common.ShipBuilder.InputType;
 using CheckLimitsType = Ships.Common.ShipBuilder.CheckLimitsType;
+using System;
 
 namespace Ships
 {
@@ -19,18 +20,29 @@ namespace Ships
         [Header("Configurations")]
         [SerializeField] private ShipToSpawnConfiguration _shipToSpawnConfiguration;
         [SerializeField] private ShipsConfiguration _shipsConfiguration;
+        
+        private ShipBuilder _shipBuilder;
+        private Ship _userShip;
 
         private void Awake()
         {
             ShipFactory _shipFactory = new ShipFactory(Instantiate(_shipsConfiguration));
-            ShipBuilder shipBuilder = _shipFactory.
-                Create(_shipToSpawnConfiguration.ShipId.Value).
-                WithConfiguration(_shipToSpawnConfiguration);
+            _shipBuilder = _shipFactory.
+                           Create(_shipToSpawnConfiguration.ShipId.Value).
+                           WithConfiguration(_shipToSpawnConfiguration);
 
-            SetInput(shipBuilder);
-            SetCheckLimits(shipBuilder);
+            SetInput(_shipBuilder);
+            SetCheckLimits(_shipBuilder);
+        }
 
-            shipBuilder.Build();
+        public void SpawnUserShip()
+        {
+            _userShip = _shipBuilder.Build();
+        }
+
+        public void DestroyUserShip()
+        {
+            Destroy(_userShip.gameObject); 
         }
 
         private void SetInput(ShipBuilder shipBuilder)
