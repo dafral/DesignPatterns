@@ -4,7 +4,7 @@
     {
         public readonly int ScoreToAdd;
 
-        public EnemyDeathEventData(int scoreToAdd) : base (EventIds.EnemyDeath)
+        public EnemyDeathEventData(int scoreToAdd) : base(EventIds.EnemyDeath)
         {
             ScoreToAdd = scoreToAdd;
         }

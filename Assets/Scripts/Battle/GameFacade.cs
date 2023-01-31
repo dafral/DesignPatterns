@@ -22,7 +22,6 @@ namespace Battle
         public void StopBattle()
         {
             _enemySpawner.StopSpawn();
-            _shipInstaller.DestroyUserShip();
             _screenFade.Show();
         }
     }

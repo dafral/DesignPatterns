@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Ships.Common;
 using System.Collections.Generic;
+using Events;
+using System;
 
 namespace Ships.Enemies
 {
@@ -9,8 +11,6 @@ namespace Ships.Enemies
         [SerializeField] private LevelConfiguration _levelConfiguration;
         [SerializeField] private ShipsConfiguration _shipsConfiguration;
         [SerializeField] private Transform[] _spawnPositions;
-
-        private List<Ship> _spawnedShips;
 
         private ShipFactory _shipFactory;
         private float _currentTimeInSeconds;
@@ -25,7 +25,6 @@ namespace Ships.Enemies
         public void StartSpawn()
         {
             _canSpawn = true;
-            _spawnedShips = new List<Ship>();
         }
 
         public void StopSpawn()
@@ -33,13 +32,6 @@ namespace Ships.Enemies
             _canSpawn = false;
             _currentConfigurationIndex = 0;
             _currentTimeInSeconds = 0;
-
-            foreach (Ship ship in _spawnedShips)
-            {
-                Destroy(ship.gameObject);
-            }
-
-            _spawnedShips.Clear();
         }
 
         private void Update()
@@ -83,8 +75,6 @@ namespace Ships.Enemies
                             WithConfiguration(shipConfiguration).
                             WithTeam(Teams.Enemy).
                             Build();
-
-                _spawnedShips.Add(ship);
             }
         }
     }

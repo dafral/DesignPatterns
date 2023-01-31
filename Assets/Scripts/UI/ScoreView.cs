@@ -1,3 +1,4 @@
+using Events;
 using Ships.Common;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,14 +7,14 @@ using UnityEngine;
 
 namespace UI
 {
-    public class ScoreView : MonoBehaviour
+    public class ScoreView : MonoBehaviour, IEventObserver
     {
         [SerializeField] private TextMeshProUGUI _text;
 
-        private int _currentScore;
-
         public static ScoreView Instance { get; private set; }
-        
+
+        private int _currentScore;
+       
         public int CurrentScore
         {
             get => _currentScore;
@@ -35,12 +36,22 @@ namespace UI
             Instance = this;
         }
 
+        private void Start()
+        {
+            EventQueue.Instance.Subscribe(EventIds.ShipDestroyed, this);
+        }
+
+        private void OnDestroy()
+        {
+            EventQueue.Instance.Unsubscribe(EventIds.ShipDestroyed, this);
+        }
+
         public void Reset()
         {
             CurrentScore = 0;
         }
 
-        public void AddScore(Teams killedTeam, int scoreToAdd)
+        private void AddScore(Teams killedTeam, int scoreToAdd)
         {
             if(killedTeam != Teams.Enemy)
             {
@@ -48,6 +59,15 @@ namespace UI
             }
 
             CurrentScore += scoreToAdd;
+        }
+
+        public void Process(EventData eventData)
+        {
+            if (eventData.EventId == EventIds.ShipDestroyed)
+            {
+                ShipDestroyedEventData shipDestroyedEventData = (ShipDestroyedEventData)eventData;
+                AddScore(shipDestroyedEventData.Team, shipDestroyedEventData.ScoreToAdd);
+            }
         }
     }
 }

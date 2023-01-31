@@ -2,12 +2,13 @@ using UnityEngine;
 using MyInput;
 using Ships.Common;
 using UI;
+using Events;
 
 namespace Ships
 {
     [RequireComponent(typeof(MovementController))]
     [RequireComponent(typeof(WeaponController))]
-    public class ShipMediator : Ship
+    public class ShipMediator : Ship, IEventObserver
     {
         [SerializeField] private MovementController _movementController;
         [SerializeField] private WeaponController _weaponController;
@@ -16,6 +17,16 @@ namespace Ships
         private IInput _input;
         private Teams _team;
         private int _score;
+
+        private void Start()
+        {
+            EventQueue.Instance.Subscribe(EventIds.GameOver, this);
+        }
+
+        private void OnDestroy()
+        {
+            EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
+        }
 
         public override void Configure(ShipConfiguration shipConfiguration)
         {
@@ -50,12 +61,8 @@ namespace Ships
         {
             if(isDeath)
             {
-                ScoreView.Instance.AddScore(_team, _score);
-
-                if(_team == Teams.Player)
-                {
-                    GameOverView.Instance.Show();
-                }
+                ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, _score);
+                EventQueue.Instance.EnqueueEvent(eventData);
                 
                 Destroy(gameObject);
             }
@@ -71,6 +78,14 @@ namespace Ships
             }
 
             damageable.AddDamage(1);
+        }
+
+        public void Process(EventData eventData)
+        {
+            if (eventData.EventId == EventIds.GameOver)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

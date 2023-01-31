@@ -2,29 +2,34 @@
 using UnityEngine.UI;
 using TMPro;
 using Battle;
+using Events;
+using Ships.Common;
 
 namespace UI
 {
-    public class GameOverView : MonoBehaviour
+    public class GameOverView : MonoBehaviour, IEventObserver
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _restartButton;
         [SerializeField] private GameFacade _gameFacade;
 
-        public static GameOverView Instance { get; private set; }
-
         private void Awake()
         {
-            if(Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-
             _restartButton.onClick.AddListener(RestartGame);
+        }
+
+        private void Start()
+        {
             gameObject.SetActive(false);
+
+            EventQueue.Instance.Subscribe(EventIds.ShipDestroyed, this);
+            EventQueue.Instance.Subscribe(EventIds.GameOver, this);
+        }
+
+        private void OnDestroy()
+        {
+            EventQueue.Instance.Unsubscribe(EventIds.ShipDestroyed, this);
+            EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
         }
 
         private void RestartGame()
@@ -33,12 +38,25 @@ namespace UI
             gameObject.SetActive(false);
         }
 
-        public void Show()
+        public void Process(EventData eventData)
         {
-            _gameFacade.StopBattle();
-            _scoreText.SetText(ScoreView.Instance.CurrentScore.ToString());
-            gameObject.SetActive(true);
-        }
+            if (eventData.EventId == EventIds.ShipDestroyed)
+            {
+                ShipDestroyedEventData shipDestroyedEventData = (ShipDestroyedEventData)eventData;
+                if (shipDestroyedEventData.Team == Teams.Player)
+                {
+                    _gameFacade.StopBattle();
+                    EventQueue.Instance.EnqueueEvent(new EventData(EventIds.GameOver));
+                }
 
+                return;
+            }
+
+            else if (eventData.EventId == EventIds.GameOver)
+            {
+                _scoreText.SetText(ScoreView.Instance.CurrentScore.ToString());
+                gameObject.SetActive(true);
+            }
+        }
     }
 }

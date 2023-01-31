@@ -15,14 +15,12 @@ namespace Ships
         [SerializeField] private CheckLimitsType _checkLimitsType;
         [SerializeField] private Joystick _joystick;
         [SerializeField] private JoyButton _joyButton;
-        [SerializeField] private Ship _ship;
 
         [Header("Configurations")]
         [SerializeField] private ShipToSpawnConfiguration _shipToSpawnConfiguration;
         [SerializeField] private ShipsConfiguration _shipsConfiguration;
         
         private ShipBuilder _shipBuilder;
-        private Ship _userShip;
 
         private void Awake()
         {
@@ -38,12 +36,7 @@ namespace Ships
 
         public void SpawnUserShip()
         {
-            _userShip = _shipBuilder.Build();
-        }
-
-        public void DestroyUserShip()
-        {
-            Destroy(_userShip.gameObject); 
+            _shipBuilder.Build();
         }
 
         private void SetInput(ShipBuilder shipBuilder)
