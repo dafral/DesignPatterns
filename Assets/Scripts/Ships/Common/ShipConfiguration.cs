@@ -13,6 +13,7 @@ namespace Ships.Common
         public readonly float FireRate;
         public readonly ProjectileId DefaultProjectile;
         public readonly Teams Team;
+        public readonly ICheckDestroyLimits CheckDestroyLimits;
         public readonly int Score;
 
         public ShipConfiguration(IInput input,
@@ -22,6 +23,7 @@ namespace Ships.Common
                                  float fireRate,
                                  ProjectileId defaultProjectile,
                                  Teams team,
+                                 ICheckDestroyLimits checkDestroyLimits,
                                  int score)
         {
             Input = input;
@@ -31,6 +33,7 @@ namespace Ships.Common
             FireRate = fireRate;
             DefaultProjectile = defaultProjectile;
             Team = team;
+            CheckDestroyLimits = checkDestroyLimits;
             Score = score;
         }
     }

@@ -10,9 +10,11 @@ namespace Battle
         [SerializeField] private ScreenFade _screenFade;
         [SerializeField] private ShipInstaller _shipInstaller;
         [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private GameState _gameState;
 
         public void StartBattle()
         {
+            _gameState.Reset();
             _enemySpawner.StartSpawn();
             _shipInstaller.SpawnUserShip();
             _screenFade.Hide();

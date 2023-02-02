@@ -16,16 +16,19 @@ namespace Ships
 
         private IInput _input;
         private Teams _team;
+        private ICheckDestroyLimits _checkDestroyLimits;
         private int _score;
 
         private void Start()
         {
             EventQueue.Instance.Subscribe(EventIds.GameOver, this);
+            EventQueue.Instance.Subscribe(EventIds.Victory, this);
         }
 
         private void OnDestroy()
         {
             EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
+            EventQueue.Instance.Unsubscribe(EventIds.Victory, this);
         }
 
         public override void Configure(ShipConfiguration shipConfiguration)
@@ -35,6 +38,7 @@ namespace Ships
             _weaponController.Configure(this, shipConfiguration.FireRate, shipConfiguration.DefaultProjectile, shipConfiguration.Team);
             _healthController.Configure(this, shipConfiguration.Health, shipConfiguration.Team);
             _team = shipConfiguration.Team;
+            _checkDestroyLimits = shipConfiguration.CheckDestroyLimits;
             _score = shipConfiguration.Score;
         }
 
@@ -47,6 +51,19 @@ namespace Ships
         private void Update()
         {
             CheckShootingButton();
+            CheckDestroyLimits();
+        }
+
+        private void CheckDestroyLimits()
+        {
+            if (_checkDestroyLimits.IsInsideTheLimits(transform.position))
+            {
+                return;
+            }
+
+            Destroy(gameObject);
+            ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, 0);
+            EventQueue.Instance.EnqueueEvent(eventData);
         }
 
         private void CheckShootingButton()
@@ -82,10 +99,13 @@ namespace Ships
 
         public void Process(EventData eventData)
         {
-            if (eventData.EventId == EventIds.GameOver)
+            if (eventData.EventId != EventIds.GameOver &&
+                eventData.EventId != EventIds.Victory)
             {
-                Destroy(gameObject);
+                return;
             }
+
+            Destroy(gameObject);
         }
     }
 }

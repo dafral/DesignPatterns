@@ -36,12 +36,12 @@ namespace Ships.Enemies
 
         private void Update()
         {
-            if(!_canSpawn)
+            if (!_canSpawn)
             {
                 return;
             }
 
-            if(_currentConfigurationIndex >= _levelConfiguration.SpawnConfigurations.Length)
+            if (_currentConfigurationIndex >= _levelConfiguration.SpawnConfigurations.Length)
             {
                 return;
             }
@@ -50,13 +50,18 @@ namespace Ships.Enemies
 
             SpawnConfiguration spawnConfiguration = _levelConfiguration.SpawnConfigurations[_currentConfigurationIndex];
 
-            if(spawnConfiguration.TimeToSpawn > _currentTimeInSeconds)
+            if (spawnConfiguration.TimeToSpawn > _currentTimeInSeconds)
             {
                 return;
             }
 
             SpawnShips(spawnConfiguration);
             _currentConfigurationIndex += 1;
+
+            if (_currentConfigurationIndex >= _levelConfiguration.SpawnConfigurations.Length)
+            {
+                EventQueue.Instance.EnqueueEvent(new EventData(EventIds.AllShipsSpawned));
+            }
         }
 
         private void SpawnShips(SpawnConfiguration spawnConfiguration)
@@ -71,10 +76,13 @@ namespace Ships.Enemies
                             WithPosition(spawnPosition.position).
                             WithRotation(spawnPosition.rotation).
                             WithInputType(ShipBuilder.InputType.AI).
-                            WithCheckLimitsType(ShipBuilder.CheckLimitsType.Viewport).
+                            WithCheckLimitsType(ShipBuilder.CheckLimitsType.InitialPosition).
                             WithConfiguration(shipConfiguration).
                             WithTeam(Teams.Enemy).
+                            WithDestroyCheckLimits().
                             Build();
+
+                EventQueue.Instance.EnqueueEvent(new ShipSpawnedEventData(ship.GetInstanceID(), Teams.Enemy));
             }
         }
     }

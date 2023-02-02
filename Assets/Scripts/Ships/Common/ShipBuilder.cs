@@ -21,6 +21,7 @@ namespace Ships.Common
         private Joystick _joystick;
         private JoyButton _joyButton;
         private Teams _team;
+        private ICheckDestroyLimits _checkDestroyLimits = new DoNotCheckDestroyLimitsStrategy();
 
         public ShipBuilder FromPrefab(Ship prefab)
         {
@@ -68,6 +69,12 @@ namespace Ships.Common
         public ShipBuilder WithTeam(Teams team)
         {
             _team = team;
+            return this;
+        }
+
+        public ShipBuilder WithDestroyCheckLimits()
+        {
+            _checkDestroyLimits = new CheckBottomLimitsStrategy(Camera.main);
             return this;
         }
 
@@ -122,6 +129,7 @@ namespace Ships.Common
                                                   _shipConfiguration.FireRate,
                                                   _shipConfiguration.ProjectileId,
                                                   _team,
+                                                  _checkDestroyLimits,
                                                   _shipConfiguration.Score);
 
             ship.Configure(shipConfiguration);

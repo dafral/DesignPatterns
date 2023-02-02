@@ -17,17 +17,19 @@ namespace Ships
 
         public Vector2 ClampFinalPosition(Vector2 currentPosition)
         {
-            Vector3 finalPosition = currentPosition;
+            Vector2 finalPosition = currentPosition;
             float distance = Mathf.Abs(currentPosition.x - _initialPosition.x);
-            
             if (distance <= _maxDistance)
-            {
                 return currentPosition;
+
+            if (currentPosition.x > _initialPosition.x)
+            {
+                finalPosition.x = _initialPosition.x + _maxDistance;
             }
-            
-            finalPosition.x = currentPosition.x > _initialPosition.x ?
-                _initialPosition.x + _maxDistance :
-                _initialPosition.x - _maxDistance;
+            else
+            {
+                finalPosition.x = _initialPosition.x - _maxDistance;
+            }
 
             return finalPosition;
         }

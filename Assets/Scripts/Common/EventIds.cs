@@ -3,6 +3,9 @@
     public enum EventIds
     {
         ShipDestroyed,
-        GameOver
+        GameOver,
+        ShipSpawned,
+        AllShipsSpawned,
+        Victory
     }
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Battle;
@@ -6,7 +6,7 @@ using Events;
 
 namespace UI
 {
-    public class GameOverView : MonoBehaviour, IEventObserver
+    public class VictoryOverView : MonoBehaviour, IEventObserver
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _restartButton;
@@ -21,12 +21,12 @@ namespace UI
         {
             gameObject.SetActive(false);
 
-            EventQueue.Instance.Subscribe(EventIds.GameOver, this);
+            EventQueue.Instance.Subscribe(EventIds.Victory, this);
         }
 
         private void OnDestroy()
         {
-            EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
+            EventQueue.Instance.Unsubscribe(EventIds.Victory, this);
         }
 
         private void RestartGame()
@@ -37,7 +37,7 @@ namespace UI
 
         public void Process(EventData eventData)
         {
-            if (eventData.EventId == EventIds.GameOver)
+            if (eventData.EventId == EventIds.Victory)
             {
                 _scoreText.SetText(ScoreView.Instance.CurrentScore.ToString());
                 gameObject.SetActive(true);
