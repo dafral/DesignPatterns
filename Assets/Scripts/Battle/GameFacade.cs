@@ -10,7 +10,7 @@ namespace Battle
         [SerializeField] private ScreenFade _screenFade;
         [SerializeField] private ShipInstaller _shipInstaller;
         [SerializeField] private EnemySpawner _enemySpawner;
-        [SerializeField] private GameState _gameState;
+        [SerializeField] private GameStateController _gameState;
 
         public void StartBattle()
         {

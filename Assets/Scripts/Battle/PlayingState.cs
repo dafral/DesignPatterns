@@ -1,57 +1,39 @@
 ﻿using Events;
 using Ships.Common;
 using System;
-using UnityEngine;
 
-namespace Battle
+namespace Battle.States
 {
-    public class GameState : MonoBehaviour, IEventObserver
+    public class PlayingState : IGameState, IEventObserver
     {
-        private enum GameStates 
-        {
-            Playing,
-            GameOver,
-            Victory
-        }
-
-        [SerializeField] private GameFacade _gameFacade;
-        private GameStates _currentState = GameStates.Playing;
-
-        private int _aliveShips;
+        private Action<GameStates> _onEndedCallback;
+        private int _aliveEnemyShips;
         private bool _allShipsSpawned;
 
-        private void Start()
+        public void Start(Action<GameStates> onEndedCallback)
         {
             EventQueue.Instance.Subscribe(EventIds.ShipDestroyed, this);
             EventQueue.Instance.Subscribe(EventIds.ShipSpawned, this);
             EventQueue.Instance.Subscribe(EventIds.AllShipsSpawned, this);
+
+            _onEndedCallback = onEndedCallback;
+            _aliveEnemyShips = 0;
+            _allShipsSpawned = false;
         }
 
-        private void OnDestroy()
+        public void Stop()
         {
             EventQueue.Instance.Unsubscribe(EventIds.ShipDestroyed, this);
             EventQueue.Instance.Unsubscribe(EventIds.ShipSpawned, this);
             EventQueue.Instance.Unsubscribe(EventIds.AllShipsSpawned, this);
         }
 
-        public void Reset()
-        {
-            _currentState = GameStates.Playing;
-            _aliveShips = 0;
-            _allShipsSpawned = false;
-        }
-
         public void Process(EventData eventData)
         {
-            if(_currentState != GameStates.Playing)
+            if (eventData.EventId == EventIds.ShipDestroyed)
             {
-                return;
-            }
-
-            if(eventData.EventId == EventIds.ShipDestroyed)
-            {
-                _aliveShips -= 1;
-                if(CheckGameOver(eventData))
+                _aliveEnemyShips -= 1;
+                if (CheckGameOver(eventData))
                 {
                     return;
                 }
@@ -59,7 +41,7 @@ namespace Battle
 
             else if (eventData.EventId == EventIds.ShipSpawned)
             {
-                _aliveShips += 1;
+                _aliveEnemyShips += 1;
             }
 
             else if (eventData.EventId == EventIds.AllShipsSpawned)
@@ -75,10 +57,7 @@ namespace Battle
             ShipDestroyedEventData shipDestroyedEventData = (ShipDestroyedEventData)eventData;
             if (shipDestroyedEventData.Team == Teams.Player)
             {
-                _currentState = GameStates.GameOver;
-                _gameFacade.StopBattle();
-                EventQueue.Instance.EnqueueEvent(new EventData(EventIds.GameOver));
-
+                _onEndedCallback?.Invoke(GameStates.GameOver);
                 return true;
             }
 
@@ -87,11 +66,9 @@ namespace Battle
 
         private void CheckGameState()
         {
-            if(_aliveShips == 0 && _allShipsSpawned)
+            if (_aliveEnemyShips == 0 && _allShipsSpawned)
             {
-                _gameFacade.StopBattle();
-                _currentState = GameStates.Victory;
-                EventQueue.Instance.EnqueueEvent(new EventData(EventIds.Victory));
+                _onEndedCallback?.Invoke(GameStates.Victory);
             }
         }
     }
