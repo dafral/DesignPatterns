@@ -1,4 +1,4 @@
-﻿namespace Battle
+﻿namespace Battle.States
 {
     public enum GameStates
     {

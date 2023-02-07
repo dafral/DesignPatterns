@@ -1,3 +1,4 @@
+using Core.Services;
 using Events;
 using Ships.Common;
 using System.Collections;
@@ -11,8 +12,6 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _text;
 
-        public static ScoreView Instance { get; private set; }
-
         private int _currentScore;
        
         public int CurrentScore
@@ -25,25 +24,14 @@ namespace UI
             }
         }
 
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
-
         private void Start()
         {
-            EventQueue.Instance.Subscribe(EventIds.ShipDestroyed, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.ShipDestroyed, this);
         }
 
         private void OnDestroy()
         {
-            EventQueue.Instance.Unsubscribe(EventIds.ShipDestroyed, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.ShipDestroyed, this);
         }
 
         public void Reset()

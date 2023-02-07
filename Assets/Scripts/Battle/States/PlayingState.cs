@@ -1,4 +1,5 @@
-﻿using Events;
+﻿using Core.Services;
+using Events;
 using Ships.Common;
 using System;
 
@@ -12,9 +13,9 @@ namespace Battle.States
 
         public void Start(Action<GameStates> onEndedCallback)
         {
-            EventQueue.Instance.Subscribe(EventIds.ShipDestroyed, this);
-            EventQueue.Instance.Subscribe(EventIds.ShipSpawned, this);
-            EventQueue.Instance.Subscribe(EventIds.AllShipsSpawned, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.ShipDestroyed, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.ShipSpawned, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.AllShipsSpawned, this);
 
             _onEndedCallback = onEndedCallback;
             _aliveEnemyShips = 0;
@@ -23,9 +24,9 @@ namespace Battle.States
 
         public void Stop()
         {
-            EventQueue.Instance.Unsubscribe(EventIds.ShipDestroyed, this);
-            EventQueue.Instance.Unsubscribe(EventIds.ShipSpawned, this);
-            EventQueue.Instance.Unsubscribe(EventIds.AllShipsSpawned, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.ShipDestroyed, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.ShipSpawned, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.AllShipsSpawned, this);
         }
 
         public void Process(EventData eventData)

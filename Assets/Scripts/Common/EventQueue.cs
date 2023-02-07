@@ -1,13 +1,12 @@
+using Core.Services;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Events
 {
-    public class EventQueue : MonoBehaviour
+    public class EventQueue : MonoBehaviour, IEventQueue
     {
-        public static EventQueue Instance { get; private set; }
-
         private Queue<EventData> _currentEvents;
         private Queue<EventData> _nextEvents;
 
@@ -15,8 +14,6 @@ namespace Events
 
         private void Awake()
         {
-            Instance = this;
-
             _currentEvents = new Queue<EventData>();
             _nextEvents = new Queue<EventData>();
             _observers = new Dictionary<EventIds, List<IEventObserver>>();

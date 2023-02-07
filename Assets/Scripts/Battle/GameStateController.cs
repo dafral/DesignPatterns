@@ -9,23 +9,18 @@ namespace Battle
 {
     public class GameStateController : MonoBehaviour
     {
-        [SerializeField] private GameFacade _gameFacade;
-
         private IGameState _currentState;
         private Dictionary<GameStates, IGameState> _idToState;
 
-        private void Awake()
+        private void Start()
         {
             _idToState = new Dictionary<GameStates, IGameState>
                 {
                     {GameStates.Playing, new PlayingState() },
-                    {GameStates.GameOver, new GameOverState(_gameFacade) },
-                    {GameStates.Victory, new VictoryState(_gameFacade) }
+                    {GameStates.GameOver, new GameOverState() },
+                    {GameStates.Victory, new VictoryState() }
                 };
-        }
 
-        private void Start()
-        {
             _currentState = GetState(GameStates.Playing);
             _currentState.Start(ChangeToNextState);
         }

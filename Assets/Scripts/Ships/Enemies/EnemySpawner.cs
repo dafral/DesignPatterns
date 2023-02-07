@@ -3,6 +3,7 @@ using Ships.Common;
 using System.Collections.Generic;
 using Events;
 using System;
+using Core.Services;
 
 namespace Ships.Enemies
 {
@@ -60,7 +61,7 @@ namespace Ships.Enemies
 
             if (_currentConfigurationIndex >= _levelConfiguration.SpawnConfigurations.Length)
             {
-                EventQueue.Instance.EnqueueEvent(new EventData(EventIds.AllShipsSpawned));
+                ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(new EventData(EventIds.AllShipsSpawned));
             }
         }
 
@@ -82,7 +83,7 @@ namespace Ships.Enemies
                             WithDestroyCheckLimits().
                             Build();
 
-                EventQueue.Instance.EnqueueEvent(new ShipSpawnedEventData(ship.GetInstanceID(), Teams.Enemy));
+                ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(new ShipSpawnedEventData(ship.GetInstanceID(), Teams.Enemy));
             }
         }
     }

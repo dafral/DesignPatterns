@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class ScreenFade : MonoBehaviour
+    public class LoadingScreen : MonoBehaviour
     {
         [SerializeField] private Image _screenFadeImage;
 

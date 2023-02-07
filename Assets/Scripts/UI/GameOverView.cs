@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Battle;
 using Events;
+using Core.Services;
 
 namespace UI
 {
@@ -10,7 +11,6 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _restartButton;
-        [SerializeField] private GameFacade _gameFacade;
 
         private void Awake()
         {
@@ -21,17 +21,17 @@ namespace UI
         {
             gameObject.SetActive(false);
 
-            EventQueue.Instance.Subscribe(EventIds.GameOver, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.GameOver, this);
         }
 
         private void OnDestroy()
         {
-            EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.GameOver, this);
         }
 
         private void RestartGame()
         {
-            _gameFacade.StartBattle();
+            ServiceLocator.Instance.GetService<IGameFacade>().StartBattle();
             gameObject.SetActive(false);
         }
 
@@ -39,7 +39,7 @@ namespace UI
         {
             if (eventData.EventId == EventIds.GameOver)
             {
-                _scoreText.SetText(ScoreView.Instance.CurrentScore.ToString());
+                _scoreText.SetText(ServiceLocator.Instance.GetService<ScoreView>().CurrentScore.ToString());
                 gameObject.SetActive(true);
             }
         }

@@ -3,6 +3,7 @@ using MyInput;
 using Ships.Common;
 using UI;
 using Events;
+using Core.Services;
 
 namespace Ships
 {
@@ -21,14 +22,14 @@ namespace Ships
 
         private void Start()
         {
-            EventQueue.Instance.Subscribe(EventIds.GameOver, this);
-            EventQueue.Instance.Subscribe(EventIds.Victory, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.GameOver, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.Victory, this);
         }
 
         private void OnDestroy()
         {
-            EventQueue.Instance.Unsubscribe(EventIds.GameOver, this);
-            EventQueue.Instance.Unsubscribe(EventIds.Victory, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.GameOver, this);
+            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.Victory, this);
         }
 
         public override void Configure(ShipConfiguration shipConfiguration)
@@ -63,7 +64,7 @@ namespace Ships
 
             Destroy(gameObject);
             ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, 0);
-            EventQueue.Instance.EnqueueEvent(eventData);
+            ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(eventData);
         }
 
         private void CheckShootingButton()
@@ -79,7 +80,7 @@ namespace Ships
             if(isDeath)
             {
                 ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, _score);
-                EventQueue.Instance.EnqueueEvent(eventData);
+                ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(eventData);
                 
                 Destroy(gameObject);
             }

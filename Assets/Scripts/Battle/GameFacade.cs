@@ -2,29 +2,28 @@
 using Ships;
 using Ships.Enemies;
 using UI;
+using Core.Services;
 
 namespace Battle
 {
-    public class GameFacade : MonoBehaviour
-    {
-        [SerializeField] private ScreenFade _screenFade;
-        [SerializeField] private ShipInstaller _shipInstaller;
-        [SerializeField] private EnemySpawner _enemySpawner;
-        [SerializeField] private GameStateController _gameState;
 
+    public class GameFacade : MonoBehaviour, IGameFacade
+    {
         public void StartBattle()
         {
-            _gameState.Reset();
-            _enemySpawner.StartSpawn();
-            _shipInstaller.SpawnUserShip();
-            _screenFade.Hide();
-            ScoreView.Instance.Reset();
+            ServiceLocator serviceLocator = ServiceLocator.Instance;
+            serviceLocator.GetService<GameStateController>().Reset();
+            serviceLocator.GetService<EnemySpawner>().StartSpawn();
+            serviceLocator.GetService<ShipInstaller>().SpawnUserShip();
+            serviceLocator.GetService<LoadingScreen>().Hide();
+            serviceLocator.GetService<ScoreView>().Reset();
         }
 
         public void StopBattle()
         {
-            _enemySpawner.StopSpawn();
-            _screenFade.Show();
+            ServiceLocator serviceLocator = ServiceLocator.Instance;
+            serviceLocator.GetService<EnemySpawner>().StopSpawn();
+            serviceLocator.GetService<LoadingScreen>().Show();
         }
     }
 }
