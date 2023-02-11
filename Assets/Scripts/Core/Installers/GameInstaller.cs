@@ -5,7 +5,7 @@ using UI;
 using Ships;
 using Ships.Enemies;
 
-namespace Core
+namespace Core.Installers
 {
     public class GameInstaller : GeneralInstaller
     {
@@ -25,6 +25,14 @@ namespace Core
             ServiceLocator.Instance.RegisterService(_shipInstaller);
             ServiceLocator.Instance.RegisterService(_enemySpawner);
             ServiceLocator.Instance.RegisterService(_gameStateController);
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Instance.UnregisterService<ScoreView>();
+            ServiceLocator.Instance.UnregisterService<ShipInstaller>();
+            ServiceLocator.Instance.UnregisterService<EnemySpawner>();
+            ServiceLocator.Instance.UnregisterService<GameStateController>();
         }
     }
 }

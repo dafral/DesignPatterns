@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
 
-namespace Patterns.Command
+namespace Common.MyTask
 {
     public static class TaskExtensions
     {

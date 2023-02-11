@@ -2,7 +2,7 @@
 using Core.Services;
 using Battle;
 
-namespace Core
+namespace Core.Installers
 {
     public class GameFacadeInstaller : Installer
     {

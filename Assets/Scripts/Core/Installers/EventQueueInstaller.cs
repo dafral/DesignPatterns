@@ -2,7 +2,7 @@
 using Core.Services;
 using Events;
 
-namespace Core
+namespace Core.Installers
 {
     public class EventQueueInstaller : Installer
     {

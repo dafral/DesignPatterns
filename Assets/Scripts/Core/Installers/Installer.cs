@@ -1,7 +1,7 @@
 ﻿using Core.Services;
 using UnityEngine;
 
-namespace Core
+namespace Core.Installers
 {
     public abstract class Installer : MonoBehaviour
     {

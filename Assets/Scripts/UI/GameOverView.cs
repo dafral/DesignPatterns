@@ -4,6 +4,7 @@ using TMPro;
 using Battle;
 using Events;
 using Core.Services;
+using Core.Commands;
 
 namespace UI
 {
@@ -11,10 +12,12 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _menuButton;
 
         private void Awake()
         {
             _restartButton.onClick.AddListener(RestartGame);
+            _menuButton.onClick.AddListener(GoToMenu);
         }
 
         private void Start()
@@ -33,6 +36,11 @@ namespace UI
         {
             ServiceLocator.Instance.GetService<IGameFacade>().StartBattle();
             gameObject.SetActive(false);
+        }
+
+        private void GoToMenu()
+        {
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new LoadSceneCommand("Menu"));
         }
 
         public void Process(EventData eventData)

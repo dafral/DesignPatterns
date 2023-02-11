@@ -1,28 +1,25 @@
-using UnityEngine;
-using UI;
-using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
 using Core.Services;
+using System.Threading.Tasks;
+using UI;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace Core
+namespace Core.Commands
 {
-    public class GlobalInstaller : GeneralInstaller
+    public class LoadSceneCommand : ICommand
     {
-        protected override async void DoStart()
+        private readonly string _sceneToLoad;
+
+        public LoadSceneCommand(string sceneToLoad)
         {
-            await LoadNextScene();
+            _sceneToLoad = sceneToLoad;
         }
 
-        protected override void DoInstallDependencies()
-        {
-
-        }
-
-        private async Task LoadNextScene()
+        public async Task Execute()
         {
             LoadingScreen loadingScreen = ServiceLocator.Instance.GetService<LoadingScreen>();
             loadingScreen.Show();
-            await LoadScene("Game");
+            await LoadScene(_sceneToLoad);
             loadingScreen.Hide();
         }
 
@@ -30,7 +27,7 @@ namespace Core
         {
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(sceneName);
 
-            while(!loadSceneAsync.isDone)
+            while (!loadSceneAsync.isDone)
             {
                 await Task.Yield();
             }
@@ -38,6 +35,5 @@ namespace Core
             // Loading frame for precaution
             await Task.Yield();
         }
-
     }
 }

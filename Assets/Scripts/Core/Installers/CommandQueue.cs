@@ -1,10 +1,11 @@
 ﻿using Common.MyTask;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
-namespace Patterns.Command
+namespace Core.Commands
 {
-    public class CommandQueue
+    public class CommandQueue : MonoBehaviour
     {
         public static CommandQueue Instance => _instance ?? (_instance = new CommandQueue());
 
@@ -26,12 +27,12 @@ namespace Patterns.Command
 
         private async Task RunNextCommand()
         {
-            if(_runningCommand)
+            if (_runningCommand)
             {
                 return;
             }
 
-            while(_commandsToExecute.Count > 0)
+            while (_commandsToExecute.Count > 0)
             {
                 _runningCommand = true;
                 ICommand commandToExecute = _commandsToExecute.Dequeue();

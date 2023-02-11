@@ -1,8 +1,9 @@
 ﻿using UI;
 using UnityEngine;
 using Core.Services;
+using Core.Commands;
 
-namespace Core
+namespace Core.Installers
 {
     public class LoadingScreenInstaller : Installer
     {
