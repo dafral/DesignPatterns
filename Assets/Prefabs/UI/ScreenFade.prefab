@@ -89,9 +89,9 @@ GameObject:
   - component: {fileID: 3970915625611856885}
   - component: {fileID: 3970915625611856884}
   - component: {fileID: 3970915625611856887}
-  - component: {fileID: 5436526587805630396}
+  - component: {fileID: -1035465102000153303}
   m_Layer: 5
-  m_Name: LoadingScreen
+  m_Name: ScreenFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5436526587805630396
+--- !u!114 &-1035465102000153303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,10 +188,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3970915625611856886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a21b99203eef344c8ec80f7be5bdde2, type: 3}
+  m_Script: {fileID: 11500000, guid: f64b726a92ed6de47a7f425776b5a17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screenFadeImage: {fileID: 1008759114599056663}
 --- !u!1 &7948428436821342717
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Battle;
 using Core.Services;
+using Core.Commands;
 
 namespace UI
 {
@@ -19,7 +20,7 @@ namespace UI
 
         private void StartBattle()
         {
-            ServiceLocator.Instance.GetService<IGameFacade>().StartBattle();
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new StartBattleCommand());
         }
 
         private void StopBattle()

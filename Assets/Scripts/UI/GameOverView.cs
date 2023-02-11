@@ -34,7 +34,7 @@ namespace UI
 
         private void RestartGame()
         {
-            ServiceLocator.Instance.GetService<IGameFacade>().StartBattle();
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new StartBattleCommand());
             gameObject.SetActive(false);
         }
 

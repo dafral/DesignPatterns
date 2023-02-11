@@ -13,6 +13,7 @@ namespace Core.Installers
         [SerializeField] private ShipInstaller _shipInstaller;
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private GameStateController _gameStateController;
+        [SerializeField] private ScreenFade _screenFade;
 
         protected override void DoStart()
         {
@@ -25,6 +26,7 @@ namespace Core.Installers
             ServiceLocator.Instance.RegisterService(_shipInstaller);
             ServiceLocator.Instance.RegisterService(_enemySpawner);
             ServiceLocator.Instance.RegisterService(_gameStateController);
+            ServiceLocator.Instance.RegisterService(_screenFade);
         }
 
         private void OnDestroy()
@@ -33,6 +35,7 @@ namespace Core.Installers
             ServiceLocator.Instance.UnregisterService<ShipInstaller>();
             ServiceLocator.Instance.UnregisterService<EnemySpawner>();
             ServiceLocator.Instance.UnregisterService<GameStateController>();
+            ServiceLocator.Instance.UnregisterService<ScreenFade>();
         }
     }
 }

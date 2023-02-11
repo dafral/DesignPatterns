@@ -16,7 +16,7 @@ namespace UI
 
         private void AddGoToGameCommand()
         {
-            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new LoadSceneCommand("Game"));
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new LoadGameScene());
         }
     }
 }
