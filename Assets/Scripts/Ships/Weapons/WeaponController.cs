@@ -1,4 +1,5 @@
-﻿using Ships.Common;
+﻿using Core.Services;
+using Ships.Common;
 using Ships.Weapons;
 using Ships.Weapons.Projectiles;
 using System;
@@ -11,7 +12,6 @@ namespace Ships
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] private Transform _projectileSpawnPoint;
-        [SerializeField] private ProjectilesConfiguration _projectilesConfiguration;
 
         private List<Projectile> _firedProjectiles;
         private ShipMediator _ship;
@@ -23,7 +23,7 @@ namespace Ships
 
         private void Awake()
         {
-            _projectileFactory = new ProjectileFactory(Instantiate(_projectilesConfiguration));
+            _projectileFactory = ServiceLocator.Instance.GetService<ProjectileFactory>();
             _firedProjectiles = new List<Projectile>();
         }
 

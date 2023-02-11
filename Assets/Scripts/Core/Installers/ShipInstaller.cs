@@ -5,6 +5,7 @@ using Ships.Common;
 using InputType = Ships.Common.ShipBuilder.InputType;
 using CheckLimitsType = Ships.Common.ShipBuilder.CheckLimitsType;
 using System;
+using Core.Services;
 
 namespace Ships
 {
@@ -18,13 +19,12 @@ namespace Ships
 
         [Header("Configurations")]
         [SerializeField] private ShipToSpawnConfiguration _shipToSpawnConfiguration;
-        [SerializeField] private ShipsConfiguration _shipsConfiguration;
         
         private ShipBuilder _shipBuilder;
 
         private void Awake()
         {
-            ShipFactory _shipFactory = new ShipFactory(Instantiate(_shipsConfiguration));
+            ShipFactory _shipFactory = ServiceLocator.Instance.GetService<ShipFactory>();
             _shipBuilder = _shipFactory.
                            Create(_shipToSpawnConfiguration.ShipId.Value).
                            WithConfiguration(_shipToSpawnConfiguration).

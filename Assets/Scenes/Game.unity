@@ -631,7 +631,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelConfiguration: {fileID: 11400000, guid: 871b6ba4cd94e4e4eb78994fb39ba4c9, type: 2}
-  _shipsConfiguration: {fileID: 11400000, guid: e63cb90e4bd074f4a80dc9dc6df915d7, type: 2}
   _spawnPositions:
   - {fileID: 230523952}
 --- !u!4 &338264819
@@ -942,6 +941,8 @@ MonoBehaviour:
   _enemySpawner: {fileID: 338264818}
   _gameStateController: {fileID: 1200368728}
   _screenFade: {fileID: 870448543}
+  _shipsConfiguration: {fileID: 11400000, guid: e63cb90e4bd074f4a80dc9dc6df915d7, type: 2}
+  _projectilesConfiguration: {fileID: 11400000, guid: 2171d20552403fb4cbc288eccf41bcf7, type: 2}
 --- !u!4 &527522541
 Transform:
   m_ObjectHideFlags: 0
@@ -3031,7 +3032,6 @@ MonoBehaviour:
   _joystick: {fileID: 992657406}
   _joyButton: {fileID: 5579481805377443459}
   _shipToSpawnConfiguration: {fileID: 11400000, guid: d7e0e874823d9a346ad01ae6f21bb7a3, type: 2}
-  _shipsConfiguration: {fileID: 11400000, guid: e63cb90e4bd074f4a80dc9dc6df915d7, type: 2}
 --- !u!4 &1925854579
 Transform:
   m_ObjectHideFlags: 0

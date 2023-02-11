@@ -10,7 +10,6 @@ namespace Ships.Enemies
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private LevelConfiguration _levelConfiguration;
-        [SerializeField] private ShipsConfiguration _shipsConfiguration;
         [SerializeField] private Transform[] _spawnPositions;
 
         private ShipFactory _shipFactory;
@@ -20,7 +19,7 @@ namespace Ships.Enemies
 
         private void Awake()
         {
-            _shipFactory = new ShipFactory(Instantiate(_shipsConfiguration));
+            _shipFactory = ServiceLocator.Instance.GetService<ShipFactory>();
         }
 
         public void StartSpawn()
