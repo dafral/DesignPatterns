@@ -1,57 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Battle;
-using Events;
 using Core.Services;
-using System;
-using Core.Commands;
 
 namespace UI
 {
-    public class VictoryOverView : MonoBehaviour, IEventObserver
+
+    public class VictoryOverView : MenuView
     {
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _menuButton;
 
-        private void Awake()
+        private IGameMenuMediator _gameMenuMediator;
+
+        public override void Configure(IGameMenuMediator gameMenuMediator)
         {
-            _restartButton.onClick.AddListener(RestartGame);
-            _menuButton.onClick.AddListener(GoToMenu);
+            _gameMenuMediator = gameMenuMediator;
+
+            _restartButton.onClick.AddListener(_gameMenuMediator.OnRestartGamePressed);
+            _menuButton.onClick.AddListener(_gameMenuMediator.OnBackToMenuPressed);
         }
 
+        public override void Show()
+        {
+            _scoreText.SetText(ServiceLocator.Instance.GetService<ScoreView>().CurrentScore.ToString());
+            gameObject.SetActive(true);
+        }
 
-        private void Start()
+        public override void Hide()
         {
             gameObject.SetActive(false);
-
-            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.Victory, this);
-        }
-
-        private void OnDestroy()
-        {
-            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.Victory, this);
-        }
-
-        private void RestartGame()
-        {
-            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new StartBattleCommand());
-            gameObject.SetActive(false);
-        }
-
-        private void GoToMenu()
-        {
-            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new LoadSceneCommand("Menu"));
-        }
-
-        public void Process(EventData eventData)
-        {
-            if (eventData.EventId == EventIds.Victory)
-            {
-                _scoreText.SetText(ServiceLocator.Instance.GetService<ScoreView>().CurrentScore.ToString());
-                gameObject.SetActive(true);
-            }
         }
     }
 }

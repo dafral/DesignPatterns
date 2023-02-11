@@ -6,6 +6,7 @@
         GameOver,
         ShipSpawned,
         AllShipsSpawned,
-        Victory
+        Victory,
+        Restart
     }
 }

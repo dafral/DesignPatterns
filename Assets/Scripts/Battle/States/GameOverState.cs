@@ -1,4 +1,5 @@
-﻿using Core.Services;
+﻿using Core.Commands;
+using Core.Services;
 using Events;
 using System;
 
@@ -8,7 +9,7 @@ namespace Battle.States
     {
         public void Start(Action<GameStates> onEndedCallback)
         {
-            ServiceLocator.Instance.GetService<IGameFacade>().StopBattle();
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new StopBattleCommand());
             ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(new EventData(EventIds.GameOver));
         }
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Ships.Common;
+using System;
 
 namespace Ships.Weapons.Projectiles
 {
@@ -17,6 +18,8 @@ namespace Ships.Weapons.Projectiles
         public string Id => _id.Value;
 
         public Teams Team { get; private set; }
+
+        public Action<Projectile> OnDestroy;
 
         public void Configure(Teams team)
         {
@@ -46,6 +49,7 @@ namespace Ships.Weapons.Projectiles
         private void DestroyProjectile()
         {
             DoDestroy();
+            OnDestroy?.Invoke(this);
             Destroy(gameObject);
         }
 

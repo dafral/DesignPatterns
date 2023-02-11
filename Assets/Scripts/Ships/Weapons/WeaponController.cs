@@ -1,5 +1,8 @@
 ﻿using Ships.Common;
 using Ships.Weapons;
+using Ships.Weapons.Projectiles;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ namespace Ships
         [SerializeField] private Transform _projectileSpawnPoint;
         [SerializeField] private ProjectilesConfiguration _projectilesConfiguration;
 
+        private List<Projectile> _firedProjectiles;
         private ShipMediator _ship;
         private ProjectileFactory _projectileFactory;
         private Teams _team;
@@ -20,7 +24,7 @@ namespace Ships
         private void Awake()
         {
             _projectileFactory = new ProjectileFactory(Instantiate(_projectilesConfiguration));
-
+            _firedProjectiles = new List<Projectile>();
         }
 
         public void Configure(ShipMediator ship, float fireRate, ProjectileId defaultProjectile, Teams team)
@@ -49,8 +53,30 @@ namespace Ships
         private void Shoot()
         {
             _remainingSecondsToBeAbleToShoot = _fireRateInSeconds;
-            _projectileFactory.Create(_activeprojectileId, _projectileSpawnPoint, _team);
+            
+            Projectile projectile = _projectileFactory.
+                Create(_activeprojectileId,
+                       _projectileSpawnPoint,
+                       _team);
 
+            projectile.OnDestroy += OnProjectileDestroy;
+            _firedProjectiles.Add(projectile);
+        }
+
+        private void OnProjectileDestroy(Projectile projectile)
+        {
+            _firedProjectiles.Remove(projectile);
+            projectile.OnDestroy -= OnProjectileDestroy;
+        }
+
+        public void Restart()
+        {
+            for (int i = 0; i < _firedProjectiles.Count; i++)
+            {
+                Destroy(_firedProjectiles[i].gameObject);
+            }
+
+            _firedProjectiles.Clear();
         }
     }
 }

@@ -1,17 +1,16 @@
-﻿using UnityEngine;
-using Ships;
-using Ships.Enemies;
-using UI;
+﻿using System.Threading.Tasks;
 using Core.Services;
+using Ships.Enemies;
 
-namespace Battle
+namespace Core.Commands
 {
-    public class GameFacade : MonoBehaviour, IGameFacade
+    public class StopBattleCommand : ICommand
     {
-        public void StopBattle()
+        public Task Execute()
         {
             ServiceLocator serviceLocator = ServiceLocator.Instance;
             serviceLocator.GetService<EnemySpawner>().StopSpawn();
+            return Task.CompletedTask;
         }
     }
 }

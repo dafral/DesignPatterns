@@ -15,6 +15,7 @@ namespace Ships
         [SerializeField] private WeaponController _weaponController;
         [SerializeField] private HealthController _healthController;
 
+        private IEventQueue _eventQueue;
         private IInput _input;
         private Teams _team;
         private ICheckDestroyLimits _checkDestroyLimits;
@@ -22,14 +23,17 @@ namespace Ships
 
         private void Start()
         {
-            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.GameOver, this);
-            ServiceLocator.Instance.GetService<IEventQueue>().Subscribe(EventIds.Victory, this);
+            _eventQueue = ServiceLocator.Instance.GetService <IEventQueue>();
+            _eventQueue.Subscribe(EventIds.GameOver, this);
+            _eventQueue.Subscribe(EventIds.Victory, this);
+            _eventQueue.Subscribe(EventIds.Restart, this);
         }
 
         private void OnDestroy()
         {
-            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.GameOver, this);
-            ServiceLocator.Instance.GetService<IEventQueue>().Unsubscribe(EventIds.Victory, this);
+            _eventQueue.Unsubscribe(EventIds.GameOver, this);
+            _eventQueue.Unsubscribe(EventIds.Victory, this);
+            _eventQueue.Unsubscribe(EventIds.Restart, this);
         }
 
         public override void Configure(ShipConfiguration shipConfiguration)
@@ -64,7 +68,7 @@ namespace Ships
 
             Destroy(gameObject);
             ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, 0);
-            ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(eventData);
+            _eventQueue.EnqueueEvent(eventData);
         }
 
         private void CheckShootingButton()
@@ -80,7 +84,7 @@ namespace Ships
             if(isDeath)
             {
                 ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, _score);
-                ServiceLocator.Instance.GetService<IEventQueue>().EnqueueEvent(eventData);
+                _eventQueue.EnqueueEvent(eventData);
                 
                 Destroy(gameObject);
             }
@@ -101,10 +105,13 @@ namespace Ships
         public void Process(EventData eventData)
         {
             if (eventData.EventId != EventIds.GameOver &&
-                eventData.EventId != EventIds.Victory)
+                eventData.EventId != EventIds.Victory && 
+                eventData.EventId != EventIds.Restart)
             {
                 return;
             }
+
+            _weaponController.Restart();
 
             Destroy(gameObject);
         }

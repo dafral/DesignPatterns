@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Battle;
 using Core.Services;
 using Core.Commands;
 
@@ -25,7 +24,7 @@ namespace UI
 
         private void StopBattle()
         {
-            ServiceLocator.Instance.GetService<IGameFacade>().StopBattle();
+            ServiceLocator.Instance.GetService<CommandQueue>().AddCommand(new StopBattleCommand());
         }
     }
 }
