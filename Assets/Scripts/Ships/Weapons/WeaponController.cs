@@ -59,21 +59,21 @@ namespace Ships
                        _projectileSpawnPoint,
                        _team);
 
-            projectile.OnDestroy += OnProjectileDestroy;
+            projectile.OnRecycle += OnProjectileDestroy;
             _firedProjectiles.Add(projectile);
         }
 
         private void OnProjectileDestroy(Projectile projectile)
         {
             _firedProjectiles.Remove(projectile);
-            projectile.OnDestroy -= OnProjectileDestroy;
+            projectile.OnRecycle -= OnProjectileDestroy;
         }
 
         public void Restart()
         {
             for (int i = 0; i < _firedProjectiles.Count; i++)
             {
-                Destroy(_firedProjectiles[i].gameObject);
+                _firedProjectiles[i].Recycle();
             }
 
             _firedProjectiles.Clear();

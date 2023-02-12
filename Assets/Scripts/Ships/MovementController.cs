@@ -13,11 +13,12 @@ namespace Ships
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _currentPosition = _rigidbody.position;
         }
 
         public void Configure(ShipMediator ship, ICheckLimits checkLimits, Vector2 speed)
         {
+            _currentPosition = _rigidbody.position;
+
             _ship = ship;
             _checkLimits = checkLimits;
             _speed = speed;

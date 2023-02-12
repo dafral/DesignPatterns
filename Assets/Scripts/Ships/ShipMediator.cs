@@ -4,6 +4,7 @@ using Ships.Common;
 using UI;
 using Events;
 using Core.Services;
+using System;
 
 namespace Ships
 {
@@ -21,21 +22,6 @@ namespace Ships
         private ICheckDestroyLimits _checkDestroyLimits;
         private int _score;
 
-        private void Start()
-        {
-            _eventQueue = ServiceLocator.Instance.GetService <IEventQueue>();
-            _eventQueue.Subscribe(EventIds.GameOver, this);
-            _eventQueue.Subscribe(EventIds.Victory, this);
-            _eventQueue.Subscribe(EventIds.Restart, this);
-        }
-
-        private void OnDestroy()
-        {
-            _eventQueue.Unsubscribe(EventIds.GameOver, this);
-            _eventQueue.Unsubscribe(EventIds.Victory, this);
-            _eventQueue.Unsubscribe(EventIds.Restart, this);
-        }
-
         public override void Configure(ShipConfiguration shipConfiguration)
         {
             _input = shipConfiguration.Input;
@@ -45,6 +31,21 @@ namespace Ships
             _team = shipConfiguration.Team;
             _checkDestroyLimits = shipConfiguration.CheckDestroyLimits;
             _score = shipConfiguration.Score;
+        }
+
+        public override void Init()
+        {
+            _eventQueue = ServiceLocator.Instance.GetService<IEventQueue>();
+            _eventQueue.Subscribe(EventIds.GameOver, this);
+            _eventQueue.Subscribe(EventIds.Victory, this);
+            _eventQueue.Subscribe(EventIds.Restart, this);
+        }
+
+        public override void Release()
+        {
+            _eventQueue.Unsubscribe(EventIds.GameOver, this);
+            _eventQueue.Unsubscribe(EventIds.Victory, this);
+            _eventQueue.Unsubscribe(EventIds.Restart, this);
         }
 
         private void FixedUpdate()
@@ -66,7 +67,7 @@ namespace Ships
                 return;
             }
 
-            Destroy(gameObject);
+            Recycle();
             ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, 0);
             _eventQueue.EnqueueEvent(eventData);
         }
@@ -85,8 +86,8 @@ namespace Ships
             {
                 ShipDestroyedEventData eventData = new ShipDestroyedEventData(gameObject.GetInstanceID(), _team, _score);
                 _eventQueue.EnqueueEvent(eventData);
-                
-                Destroy(gameObject);
+
+                Recycle();
             }
         }
 
@@ -113,7 +114,7 @@ namespace Ships
 
             _weaponController.Restart();
 
-            Destroy(gameObject);
+            Recycle();
         }
     }
 }

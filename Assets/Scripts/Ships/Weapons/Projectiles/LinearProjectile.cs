@@ -14,11 +14,5 @@ namespace Ships.Weapons.Projectiles
         {
 
         }
-
-        protected override void DoDestroy()
-        {
-
-        }
-
     }
 }

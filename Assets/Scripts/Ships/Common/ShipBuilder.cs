@@ -1,3 +1,4 @@
+using Common.ObjectPool;
 using MyInput;
 using Ships.Enemies;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Ships.Common
         public enum InputType { Keyboard, Joystick, AI };
         public enum CheckLimitsType { Viewport, InitialPosition }
 
-        private Ship _prefab;
+        private ObjectPool _objectPool;
         private Vector3 _position = Vector3.zero;
         private Quaternion _rotation = Quaternion.identity;
         private IInput _input;
@@ -23,9 +24,9 @@ namespace Ships.Common
         private Teams _team;
         private ICheckDestroyLimits _checkDestroyLimits = new DoNotCheckDestroyLimitsStrategy();
 
-        public ShipBuilder FromPrefab(Ship prefab)
+        public ShipBuilder FromObjectPool(ObjectPool objectPool)
         {
-            _prefab = prefab;
+            _objectPool = objectPool;
             return this;
         }
 
@@ -120,7 +121,7 @@ namespace Ships.Common
 
         public Ship Build()
         {
-            Ship ship = Object.Instantiate(_prefab, _position, _rotation);
+            Ship ship = _objectPool.Spawn<Ship>(_position, _rotation);
             ShipConfiguration shipConfiguration = new ShipConfiguration(
                                                   GetInput(ship),
                                                   GetCheckLimits(ship),

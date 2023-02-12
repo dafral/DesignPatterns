@@ -37,8 +37,8 @@ namespace Core.Installers
             serviceLocator.RegisterService(_gameStateController);
             serviceLocator.RegisterService(_screenFade);
             
-            InstallShipFactory();
             InstallProjectileFactory();
+            InstallShipFactory();
         }
 
         private void OnDestroy()

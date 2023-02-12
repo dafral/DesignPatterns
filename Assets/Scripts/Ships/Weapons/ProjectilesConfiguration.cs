@@ -12,6 +12,8 @@ namespace Ships.Weapons
 
         private Dictionary<string, Projectile> _idToProjectilePrefab;
 
+        public Projectile[] ProjectilePrefabs => _projectilePrefabs;
+
         private void Awake()
         {
             _idToProjectilePrefab = new Dictionary<string, Projectile>();

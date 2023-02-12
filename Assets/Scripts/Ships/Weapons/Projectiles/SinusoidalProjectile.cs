@@ -25,10 +25,5 @@ namespace Ships.Weapons.Projectiles
 
             _currentTime += Time.deltaTime;
         }
-
-        protected override void DoDestroy()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -11,6 +11,8 @@ namespace Ships
 
         private Dictionary<string, Ship> _idToShipPrefab;
 
+        public Ship[] ShipsPrefabs => _shipsPrefabs;
+
         private void Awake()
         {
             _idToShipPrefab = new Dictionary<string, Ship>();
