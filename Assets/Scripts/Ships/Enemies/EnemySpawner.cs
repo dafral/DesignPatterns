@@ -17,7 +17,7 @@ namespace Ships.Enemies
         private int _currentConfigurationIndex;
         private bool _canSpawn;
 
-        private void Awake()
+        private void Start()
         {
             _shipFactory = ServiceLocator.Instance.GetService<ShipFactory>();
         }

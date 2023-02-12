@@ -24,14 +24,14 @@ namespace Ships
 
             if (currentPosition.x > _initialPosition.x)
             {
-                finalPosition.x = _initialPosition.x + _maxDistance;
+                finalPosition.x = _initialPosition.x - _maxDistance;
             }
             else
             {
-                finalPosition.x = _initialPosition.x - _maxDistance;
+                finalPosition.x = _initialPosition.x + _maxDistance;
             }
 
-            return finalPosition;
+            return currentPosition;
         }
     }
 }

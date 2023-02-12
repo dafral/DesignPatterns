@@ -31,6 +31,7 @@ namespace Events
         {
             _currentEvents = new Queue<EventData>();
             _nextEvents = new Queue<EventData>();
+            _dataToAdd = new List<PendingData>();
             _dataToRemove = new List<PendingData>();
             _observers = new Dictionary<EventIds, List<IEventObserver>>();
         }
@@ -128,6 +129,9 @@ namespace Events
             {
                 DoUnsuscribe(data.EventId, data.EventObserver);
             }
+
+            _dataToAdd.Clear();
+            _dataToRemove.Clear();
         }
     }
 }
